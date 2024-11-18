@@ -169,4 +169,7 @@
     .search div{
         gap: 5px;
     }
+    .container .cards{
+        display: none;
+    }
 }

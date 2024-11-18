@@ -19,7 +19,6 @@ const AiContextProvider = ({children}) => {
     }
 
     const newChat = () => {
-        // setLoading(false)
         setShowResult(false)
     }
 
@@ -29,7 +28,6 @@ const AiContextProvider = ({children}) => {
         setShowResult(true)
         let res;
         if(prompt) {
-            setPrevPrompt(prev=>[prompt, ...prev])
             setRecentPrompt(prompt)
             res = await run(prompt) 
         }else {
