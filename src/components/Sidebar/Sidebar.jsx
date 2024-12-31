@@ -5,11 +5,7 @@ import { useAiContext } from "../../context/AIContext";
 
 const Sidebar = () => {
   const [extended, setExtended] = useState(false);
-  const { prevPrompt, setRecentPrompt, onSent, newChat } = useAiContext();
-
-  const loadPrompt = (prompt) => {
-    onSent(prompt)
-  }
+  const { prevPrompt, onSent, newChat } = useAiContext();
 
   return (
     <div className={`sidebar`}>
@@ -20,41 +16,42 @@ const Sidebar = () => {
           alt=""
           onClick={() => setExtended((prev) => !prev)}
         />
-        <div 
-        className="new-chat"
-        onClick={()=>newChat()}>
+        <div className="new-chat" onClick={() => newChat()}>
           <img src={assets.plus_icon} alt="" />
-          {extended ? <p>New Chat</p> : null}
+          {extended && <p>New Chat</p>}
         </div>
 
-        {extended ? (
+        {extended && (
           <div className="recent">
             <p className="recent-title">Recent</p>
             {prevPrompt.map((prompt, i) => (
               <div
-              key={i} 
-              className="recent-entry"
-              onClick={()=>loadPrompt(prompt)}>
+                key={i}
+                className="recent-entry"
+                onClick={() => onSent(prompt)}
+              >
                 <img src={assets.message_icon} alt="" />
-                <p>{prompt.slice(0,18)} ...</p>
+                <p>
+                  {prompt.length > 18 ? prompt.slice(0, 18) + "..." : prompt}
+                </p>
               </div>
             ))}
           </div>
-        ) : null}
+        )}
       </div>
 
       <div className="bottom">
         <div className="bottom-item recent-entry">
           <img src={assets.question_icon} alt="" />
-          {extended ? <p>Help</p> : null}
+          {extended && <p>Help</p>}
         </div>
         <div className="bottom-item recent-entry">
           <img src={assets.history_icon} alt="" />
-          {extended ? <p>Activity</p> : null}
+          {extended && <p>Activity</p>}
         </div>
         <div className="bottom-item recent-entry">
           <img src={assets.setting_icon} alt="" />
-          {extended ? <p>Settings</p> : null}
+          {extended && <p>Settings</p>}
         </div>
       </div>
     </div>
